@@ -1,0 +1,145 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.xj.dao.InformationContactMapper" >
+  <resultMap id="BaseResultMap" type="com.xj.pojo.InformationContact" >
+    <id column="ic_id" property="icId" jdbcType="INTEGER" />
+    <result column="se_id" property="seId" jdbcType="INTEGER" />
+    <result column="office_address" property="officeAddress" jdbcType="VARCHAR" />
+    <result column="phone" property="phone" jdbcType="VARCHAR" />
+    <result column="post_code" property="postCode" jdbcType="VARCHAR" />
+    <result column="website" property="website" jdbcType="VARCHAR" />
+    <result column="email" property="email" jdbcType="VARCHAR" />
+    <result column="contacts" property="contacts" jdbcType="VARCHAR" />
+    <association property="signleEnterprise" javaType="com.xj.pojo.SignleEnterprise">
+    	<id column="se_id" property="seId" jdbcType="INTEGER" />
+    	<result column="se_name" property="seName" jdbcType="VARCHAR" />
+    </association>
+  </resultMap>
+  <sql id="Base_Column_List" >
+    ic_id, information_contact.se_id, office_address, phone, post_code, website, email, contacts
+  </sql>
+  <sql id="signleEnterprise_Column_List">
+  	signle_enterprise.se_id, se_name
+  </sql>
+  
+  <select id="getInformationContactListBySeId" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+  	select 
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="signleEnterprise_Column_List" />
+    from information_contact,signle_enterprise
+    where information_contact.se_id = #{seId,jdbcType=INTEGER} and signle_enterprise.se_id = #{seId,jdbcType=INTEGER}
+  </select>
+  
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from information_contact
+    where ic_id = #{icId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from information_contact
+    where ic_id = #{icId,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.xj.pojo.InformationContact" >
+    insert into information_contact (ic_id, se_id, office_address, 
+      phone, post_code, website, 
+      email, contacts)
+    values (#{icId,jdbcType=INTEGER}, #{seId,jdbcType=INTEGER}, #{officeAddress,jdbcType=VARCHAR}, 
+      #{phone,jdbcType=VARCHAR}, #{postCode,jdbcType=VARCHAR}, #{website,jdbcType=VARCHAR}, 
+      #{email,jdbcType=VARCHAR}, #{contacts,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.xj.pojo.InformationContact" useGeneratedKeys="true" keyProperty="icId">
+    insert into information_contact
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="icId != null" >
+        ic_id,
+      </if>
+      <if test="seId != null" >
+        se_id,
+      </if>
+      <if test="officeAddress != null" >
+        office_address,
+      </if>
+      <if test="phone != null" >
+        phone,
+      </if>
+      <if test="postCode != null" >
+        post_code,
+      </if>
+      <if test="website != null" >
+        website,
+      </if>
+      <if test="email != null" >
+        email,
+      </if>
+      <if test="contacts != null" >
+        contacts,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="icId != null" >
+        #{icId,jdbcType=INTEGER},
+      </if>
+      <if test="seId != null" >
+        #{seId,jdbcType=INTEGER},
+      </if>
+      <if test="officeAddress != null" >
+        #{officeAddress,jdbcType=VARCHAR},
+      </if>
+      <if test="phone != null" >
+        #{phone,jdbcType=VARCHAR},
+      </if>
+      <if test="postCode != null" >
+        #{postCode,jdbcType=VARCHAR},
+      </if>
+      <if test="website != null" >
+        #{website,jdbcType=VARCHAR},
+      </if>
+      <if test="email != null" >
+        #{email,jdbcType=VARCHAR},
+      </if>
+      <if test="contacts != null" >
+        #{contacts,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.xj.pojo.InformationContact" >
+    update information_contact
+    <set >
+      <if test="seId != null" >
+        se_id = #{seId,jdbcType=INTEGER},
+      </if>
+      <if test="officeAddress != null" >
+        office_address = #{officeAddress,jdbcType=VARCHAR},
+      </if>
+      <if test="phone != null" >
+        phone = #{phone,jdbcType=VARCHAR},
+      </if>
+      <if test="postCode != null" >
+        post_code = #{postCode,jdbcType=VARCHAR},
+      </if>
+      <if test="website != null" >
+        website = #{website,jdbcType=VARCHAR},
+      </if>
+      <if test="email != null" >
+        email = #{email,jdbcType=VARCHAR},
+      </if>
+      <if test="contacts != null" >
+        contacts = #{contacts,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where ic_id = #{icId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.xj.pojo.InformationContact" >
+    update information_contact
+    set se_id = #{seId,jdbcType=INTEGER},
+      office_address = #{officeAddress,jdbcType=VARCHAR},
+      phone = #{phone,jdbcType=VARCHAR},
+      post_code = #{postCode,jdbcType=VARCHAR},
+      website = #{website,jdbcType=VARCHAR},
+      email = #{email,jdbcType=VARCHAR},
+      contacts = #{contacts,jdbcType=VARCHAR}
+    where ic_id = #{icId,jdbcType=INTEGER}
+  </update>
+</mapper>

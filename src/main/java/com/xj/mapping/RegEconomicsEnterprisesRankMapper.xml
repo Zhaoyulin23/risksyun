@@ -1,0 +1,142 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.xj.dao.RegEconomicsEnterprisesRankMapper" >
+  <resultMap id="BaseResultMap" type="com.xj.pojo.RegEconomicsEnterprisesRank" >
+    <id column="rer_id" property="rerId" jdbcType="INTEGER" />
+    <result column="rge_id" property="rgeId" jdbcType="INTEGER" />
+    <result column="order" property="order" jdbcType="INTEGER" />
+    <result column="enterprises_name" property="enterprisesName" jdbcType="VARCHAR" />
+    <result column="rank_basis" property="rankBasis" jdbcType="VARCHAR" />
+    <result column="rank_basis_value" property="rankBasisValue" jdbcType="INTEGER" />
+    <result column="industry_category" property="industryCategory" jdbcType="VARCHAR" />
+    <result column="industry_class" property="industryClass" jdbcType="VARCHAR" />
+    <result column="industry_kind" property="industryKind" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    rer_id, rge_id, order, enterprises_name, rank_basis, rank_basis_value, industry_category, 
+    industry_class, industry_kind
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from reg_economics_enterprises_rank
+    where rer_id = #{rerId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from reg_economics_enterprises_rank
+    where rer_id = #{rerId,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.xj.pojo.RegEconomicsEnterprisesRank" >
+    insert into reg_economics_enterprises_rank (rer_id, rge_id, order, 
+      enterprises_name, rank_basis, rank_basis_value, 
+      industry_category, industry_class, industry_kind
+      )
+    values (#{rerId,jdbcType=INTEGER}, #{rgeId,jdbcType=INTEGER}, #{order,jdbcType=INTEGER}, 
+      #{enterprisesName,jdbcType=VARCHAR}, #{rankBasis,jdbcType=VARCHAR}, #{rankBasisValue,jdbcType=INTEGER}, 
+      #{industryCategory,jdbcType=VARCHAR}, #{industryClass,jdbcType=VARCHAR}, #{industryKind,jdbcType=VARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.xj.pojo.RegEconomicsEnterprisesRank" >
+    insert into reg_economics_enterprises_rank
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="rerId != null" >
+        rer_id,
+      </if>
+      <if test="rgeId != null" >
+        rge_id,
+      </if>
+      <if test="order != null" >
+        order,
+      </if>
+      <if test="enterprisesName != null" >
+        enterprises_name,
+      </if>
+      <if test="rankBasis != null" >
+        rank_basis,
+      </if>
+      <if test="rankBasisValue != null" >
+        rank_basis_value,
+      </if>
+      <if test="industryCategory != null" >
+        industry_category,
+      </if>
+      <if test="industryClass != null" >
+        industry_class,
+      </if>
+      <if test="industryKind != null" >
+        industry_kind,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="rerId != null" >
+        #{rerId,jdbcType=INTEGER},
+      </if>
+      <if test="rgeId != null" >
+        #{rgeId,jdbcType=INTEGER},
+      </if>
+      <if test="order != null" >
+        #{order,jdbcType=INTEGER},
+      </if>
+      <if test="enterprisesName != null" >
+        #{enterprisesName,jdbcType=VARCHAR},
+      </if>
+      <if test="rankBasis != null" >
+        #{rankBasis,jdbcType=VARCHAR},
+      </if>
+      <if test="rankBasisValue != null" >
+        #{rankBasisValue,jdbcType=INTEGER},
+      </if>
+      <if test="industryCategory != null" >
+        #{industryCategory,jdbcType=VARCHAR},
+      </if>
+      <if test="industryClass != null" >
+        #{industryClass,jdbcType=VARCHAR},
+      </if>
+      <if test="industryKind != null" >
+        #{industryKind,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.xj.pojo.RegEconomicsEnterprisesRank" >
+    update reg_economics_enterprises_rank
+    <set >
+      <if test="rgeId != null" >
+        rge_id = #{rgeId,jdbcType=INTEGER},
+      </if>
+      <if test="order != null" >
+        order = #{order,jdbcType=INTEGER},
+      </if>
+      <if test="enterprisesName != null" >
+        enterprises_name = #{enterprisesName,jdbcType=VARCHAR},
+      </if>
+      <if test="rankBasis != null" >
+        rank_basis = #{rankBasis,jdbcType=VARCHAR},
+      </if>
+      <if test="rankBasisValue != null" >
+        rank_basis_value = #{rankBasisValue,jdbcType=INTEGER},
+      </if>
+      <if test="industryCategory != null" >
+        industry_category = #{industryCategory,jdbcType=VARCHAR},
+      </if>
+      <if test="industryClass != null" >
+        industry_class = #{industryClass,jdbcType=VARCHAR},
+      </if>
+      <if test="industryKind != null" >
+        industry_kind = #{industryKind,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where rer_id = #{rerId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.xj.pojo.RegEconomicsEnterprisesRank" >
+    update reg_economics_enterprises_rank
+    set rge_id = #{rgeId,jdbcType=INTEGER},
+      order = #{order,jdbcType=INTEGER},
+      enterprises_name = #{enterprisesName,jdbcType=VARCHAR},
+      rank_basis = #{rankBasis,jdbcType=VARCHAR},
+      rank_basis_value = #{rankBasisValue,jdbcType=INTEGER},
+      industry_category = #{industryCategory,jdbcType=VARCHAR},
+      industry_class = #{industryClass,jdbcType=VARCHAR},
+      industry_kind = #{industryKind,jdbcType=VARCHAR}
+    where rer_id = #{rerId,jdbcType=INTEGER}
+  </update>
+</mapper>

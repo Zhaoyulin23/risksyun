@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.xj.dao.PlaGroupMapper" >
+  <resultMap id="BaseResultMap" type="com.xj.pojo.PlaGroup" >
+    <id column="group_id" property="groupId" jdbcType="INTEGER" />
+    <result column="group_name" property="groupName" jdbcType="VARCHAR" />
+    <collection property="plafunList" column="group_id" javaType="ArrayList" 
+    	ofType="com.xj.pojo.PlaFun" select="getPlaFunByGroupId">
+    	
+    </collection>
+  </resultMap>
+ 
+ <resultMap type="com.xj.pojo.PlaFun" id="PlaFunMap">
+ 	<id column="fun_id" property="funId" jdbcType="INTEGER"/>
+ 	<result column="fun_name" property="funName" jdbcType="VARCHAR"/>
+ 	<result column="fun_label" property="funLabel" jdbcType="VARCHAR"/>
+ </resultMap> 
+ 
+<select id="getPlaFunByGroupId" resultMap="PlaFunMap" parameterType="java.lang.Integer">
+	select fun_id,fun_name,fun_label from pla_fun left join pla_groupfun on gf_fun_id = fun_id where gf_group_id = #{groupId}
+	
+</select>
+ 
+  <sql id="Base_Column_List" >
+    group_id, group_name
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from pla_group
+    where group_id = #{groupId,jdbcType=INTEGER}
+  </select>
+  
+  <select id="selectAll" resultMap="BaseResultMap">
+   	select 
+    <include refid="Base_Column_List" />
+    from pla_group
+  </select>
+  
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from pla_group
+    where group_id = #{groupId,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.xj.pojo.PlaGroup" >
+    insert into pla_group (group_id, group_name)
+    values (#{groupId,jdbcType=INTEGER}, #{groupName,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.xj.pojo.PlaGroup" useGeneratedKeys="true" keyProperty="groupId">
+    insert into pla_group
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="groupId != null" >
+        group_id,
+      </if>
+      <if test="groupName != null" >
+        group_name,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="groupId != null" >
+        #{groupId,jdbcType=INTEGER},
+      </if>
+      <if test="groupName != null" >
+        #{groupName,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.xj.pojo.PlaGroup" >
+    update pla_group
+    <set >
+      <if test="groupName != null" >
+        group_name = #{groupName,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where group_id = #{groupId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.xj.pojo.PlaGroup" >
+    update pla_group
+    set group_name = #{groupName,jdbcType=VARCHAR}
+    where group_id = #{groupId,jdbcType=INTEGER}
+  </update>
+</mapper>

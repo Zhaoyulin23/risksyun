@@ -1,0 +1,174 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.xj.dao.IndustryMapper" >
+  <resultMap id="BaseResultMap" type="com.xj.pojo.Industry" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="pid" property="pid" jdbcType="VARCHAR" />
+    <result column="ml" property="ml" jdbcType="VARCHAR" />
+    <result column="dl" property="dl" jdbcType="INTEGER" />
+    <result column="zl" property="zl" jdbcType="INTEGER" />
+    <result column="xl" property="xl" jdbcType="INTEGER" />
+    <result column="cname" property="cname" jdbcType="VARCHAR" />
+  </resultMap>
+  <resultMap id="ResultMapWithBLOBs" type="com.xj.pojo.Industry" extends="BaseResultMap" >
+    <result column="sm" property="sm" jdbcType="LONGVARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    id, pid, ml, dl, zl, xl, cname
+  </sql>
+  <sql id="Blob_Column_List" >
+    sm
+  </sql>
+  
+  <select id="getSeIndustryCategory" resultMap="ResultMapWithBLOBs">
+  	select 
+  	<include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from industry
+    GROUP by ml 
+  </select>
+  
+  <select id="getSeIndustryClass" resultMap="ResultMapWithBLOBs" parameterType="java.lang.Integer">
+  	select 
+  	<include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from industry
+    where ml = (select ml from industry where id = #{industryCategory,jdbcType=INTEGER} ) and dl !=0 and zl =0 and xl = 0
+  </select>
+  
+  <select id="getSeIndustrySclass" resultMap="ResultMapWithBLOBs" parameterType="java.lang.Integer">
+  	select 
+  	<include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from industry
+    where ml = (select ml from industry where id = #{industryClass,jdbcType=INTEGER} ) and 
+    dl = (select dl from industry where id = #{industryClass,jdbcType=INTEGER}) and zl !=0 and xl = 0
+  </select>
+  
+  <select id="selectByPrimaryKey" resultMap="ResultMapWithBLOBs" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from industry
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from industry
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.xj.pojo.Industry" >
+    insert into industry (id, pid, ml, 
+      dl, zl, xl, cname, 
+      sm)
+    values (#{id,jdbcType=INTEGER}, #{pid,jdbcType=VARCHAR}, #{ml,jdbcType=VARCHAR}, 
+      #{dl,jdbcType=INTEGER}, #{zl,jdbcType=INTEGER}, #{xl,jdbcType=INTEGER}, #{cname,jdbcType=VARCHAR}, 
+      #{sm,jdbcType=LONGVARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.xj.pojo.Industry" >
+    insert into industry
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="pid != null" >
+        pid,
+      </if>
+      <if test="ml != null" >
+        ml,
+      </if>
+      <if test="dl != null" >
+        dl,
+      </if>
+      <if test="zl != null" >
+        zl,
+      </if>
+      <if test="xl != null" >
+        xl,
+      </if>
+      <if test="cname != null" >
+        cname,
+      </if>
+      <if test="sm != null" >
+        sm,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="pid != null" >
+        #{pid,jdbcType=VARCHAR},
+      </if>
+      <if test="ml != null" >
+        #{ml,jdbcType=VARCHAR},
+      </if>
+      <if test="dl != null" >
+        #{dl,jdbcType=INTEGER},
+      </if>
+      <if test="zl != null" >
+        #{zl,jdbcType=INTEGER},
+      </if>
+      <if test="xl != null" >
+        #{xl,jdbcType=INTEGER},
+      </if>
+      <if test="cname != null" >
+        #{cname,jdbcType=VARCHAR},
+      </if>
+      <if test="sm != null" >
+        #{sm,jdbcType=LONGVARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.xj.pojo.Industry" >
+    update industry
+    <set >
+      <if test="pid != null" >
+        pid = #{pid,jdbcType=VARCHAR},
+      </if>
+      <if test="ml != null" >
+        ml = #{ml,jdbcType=VARCHAR},
+      </if>
+      <if test="dl != null" >
+        dl = #{dl,jdbcType=INTEGER},
+      </if>
+      <if test="zl != null" >
+        zl = #{zl,jdbcType=INTEGER},
+      </if>
+      <if test="xl != null" >
+        xl = #{xl,jdbcType=INTEGER},
+      </if>
+      <if test="cname != null" >
+        cname = #{cname,jdbcType=VARCHAR},
+      </if>
+      <if test="sm != null" >
+        sm = #{sm,jdbcType=LONGVARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKeyWithBLOBs" parameterType="com.xj.pojo.Industry" >
+    update industry
+    set pid = #{pid,jdbcType=VARCHAR},
+      ml = #{ml,jdbcType=VARCHAR},
+      dl = #{dl,jdbcType=INTEGER},
+      zl = #{zl,jdbcType=INTEGER},
+      xl = #{xl,jdbcType=INTEGER},
+      cname = #{cname,jdbcType=VARCHAR},
+      sm = #{sm,jdbcType=LONGVARCHAR}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.xj.pojo.Industry" >
+    update industry
+    set pid = #{pid,jdbcType=VARCHAR},
+      ml = #{ml,jdbcType=VARCHAR},
+      dl = #{dl,jdbcType=INTEGER},
+      zl = #{zl,jdbcType=INTEGER},
+      xl = #{xl,jdbcType=INTEGER},
+      cname = #{cname,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+</mapper>

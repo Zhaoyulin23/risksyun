@@ -1,0 +1,128 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.xj.dao.IndustryReportMapper" >
+  <resultMap id="BaseResultMap" type="com.xj.pojo.IndustryReport" >
+    <id column="industry_statistics_id" property="industryStatisticsId" jdbcType="INTEGER" />
+    <result column="year" property="year" jdbcType="DATE" />
+    <result column="report_class" property="reportClass" jdbcType="VARCHAR" />
+    <result column="name" property="name" jdbcType="VARCHAR" />
+    <result column="region" property="region" jdbcType="VARCHAR" />
+    <result column="websites" property="websites" jdbcType="VARCHAR" />
+    <result column="content" property="content" jdbcType="VARCHAR" />
+    <result column="attachment" property="attachment" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    industry_statistics_id, year, report_class, name, region, websites, content, attachment
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from industry_report
+    where industry_statistics_id = #{industryStatisticsId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from industry_report
+    where industry_statistics_id = #{industryStatisticsId,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.xj.pojo.IndustryReport" >
+    insert into industry_report (industry_statistics_id, year, report_class, 
+      name, region, websites, 
+      content, attachment)
+    values (#{industryStatisticsId,jdbcType=INTEGER}, #{year,jdbcType=DATE}, #{reportClass,jdbcType=VARCHAR}, 
+      #{name,jdbcType=VARCHAR}, #{region,jdbcType=VARCHAR}, #{websites,jdbcType=VARCHAR}, 
+      #{content,jdbcType=VARCHAR}, #{attachment,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.xj.pojo.IndustryReport" >
+    insert into industry_report
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="industryStatisticsId != null" >
+        industry_statistics_id,
+      </if>
+      <if test="year != null" >
+        year,
+      </if>
+      <if test="reportClass != null" >
+        report_class,
+      </if>
+      <if test="name != null" >
+        name,
+      </if>
+      <if test="region != null" >
+        region,
+      </if>
+      <if test="websites != null" >
+        websites,
+      </if>
+      <if test="content != null" >
+        content,
+      </if>
+      <if test="attachment != null" >
+        attachment,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="industryStatisticsId != null" >
+        #{industryStatisticsId,jdbcType=INTEGER},
+      </if>
+      <if test="year != null" >
+        #{year,jdbcType=DATE},
+      </if>
+      <if test="reportClass != null" >
+        #{reportClass,jdbcType=VARCHAR},
+      </if>
+      <if test="name != null" >
+        #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="region != null" >
+        #{region,jdbcType=VARCHAR},
+      </if>
+      <if test="websites != null" >
+        #{websites,jdbcType=VARCHAR},
+      </if>
+      <if test="content != null" >
+        #{content,jdbcType=VARCHAR},
+      </if>
+      <if test="attachment != null" >
+        #{attachment,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.xj.pojo.IndustryReport" >
+    update industry_report
+    <set >
+      <if test="year != null" >
+        year = #{year,jdbcType=DATE},
+      </if>
+      <if test="reportClass != null" >
+        report_class = #{reportClass,jdbcType=VARCHAR},
+      </if>
+      <if test="name != null" >
+        name = #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="region != null" >
+        region = #{region,jdbcType=VARCHAR},
+      </if>
+      <if test="websites != null" >
+        websites = #{websites,jdbcType=VARCHAR},
+      </if>
+      <if test="content != null" >
+        content = #{content,jdbcType=VARCHAR},
+      </if>
+      <if test="attachment != null" >
+        attachment = #{attachment,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where industry_statistics_id = #{industryStatisticsId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.xj.pojo.IndustryReport" >
+    update industry_report
+    set year = #{year,jdbcType=DATE},
+      report_class = #{reportClass,jdbcType=VARCHAR},
+      name = #{name,jdbcType=VARCHAR},
+      region = #{region,jdbcType=VARCHAR},
+      websites = #{websites,jdbcType=VARCHAR},
+      content = #{content,jdbcType=VARCHAR},
+      attachment = #{attachment,jdbcType=VARCHAR}
+    where industry_statistics_id = #{industryStatisticsId,jdbcType=INTEGER}
+  </update>
+</mapper>

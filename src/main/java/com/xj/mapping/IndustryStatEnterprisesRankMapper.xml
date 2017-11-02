@@ -1,0 +1,141 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.xj.dao.IndustryStatEnterprisesRankMapper" >
+  <resultMap id="BaseResultMap" type="com.xj.pojo.IndustryStatEnterprisesRank" >
+    <id column="ier_id" property="ierId" jdbcType="INTEGER" />
+    <result column="ise_id" property="iseId" jdbcType="INTEGER" />
+    <result column="order" property="order" jdbcType="INTEGER" />
+    <result column="name" property="name" jdbcType="VARCHAR" />
+    <result column="rank_basis" property="rankBasis" jdbcType="VARCHAR" />
+    <result column="rank_value" property="rankValue" jdbcType="VARCHAR" />
+    <result column="province" property="province" jdbcType="VARCHAR" />
+    <result column="city" property="city" jdbcType="VARCHAR" />
+    <result column="district" property="district" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    ier_id, ise_id, order, name, rank_basis, rank_value, province, city, district
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from industry_stat_enterprises_rank
+    where ier_id = #{ierId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from industry_stat_enterprises_rank
+    where ier_id = #{ierId,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.xj.pojo.IndustryStatEnterprisesRank" >
+    insert into industry_stat_enterprises_rank (ier_id, ise_id, order, 
+      name, rank_basis, rank_value, 
+      province, city, district
+      )
+    values (#{ierId,jdbcType=INTEGER}, #{iseId,jdbcType=INTEGER}, #{order,jdbcType=INTEGER}, 
+      #{name,jdbcType=VARCHAR}, #{rankBasis,jdbcType=VARCHAR}, #{rankValue,jdbcType=VARCHAR}, 
+      #{province,jdbcType=VARCHAR}, #{city,jdbcType=VARCHAR}, #{district,jdbcType=VARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.xj.pojo.IndustryStatEnterprisesRank" >
+    insert into industry_stat_enterprises_rank
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="ierId != null" >
+        ier_id,
+      </if>
+      <if test="iseId != null" >
+        ise_id,
+      </if>
+      <if test="order != null" >
+        order,
+      </if>
+      <if test="name != null" >
+        name,
+      </if>
+      <if test="rankBasis != null" >
+        rank_basis,
+      </if>
+      <if test="rankValue != null" >
+        rank_value,
+      </if>
+      <if test="province != null" >
+        province,
+      </if>
+      <if test="city != null" >
+        city,
+      </if>
+      <if test="district != null" >
+        district,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="ierId != null" >
+        #{ierId,jdbcType=INTEGER},
+      </if>
+      <if test="iseId != null" >
+        #{iseId,jdbcType=INTEGER},
+      </if>
+      <if test="order != null" >
+        #{order,jdbcType=INTEGER},
+      </if>
+      <if test="name != null" >
+        #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="rankBasis != null" >
+        #{rankBasis,jdbcType=VARCHAR},
+      </if>
+      <if test="rankValue != null" >
+        #{rankValue,jdbcType=VARCHAR},
+      </if>
+      <if test="province != null" >
+        #{province,jdbcType=VARCHAR},
+      </if>
+      <if test="city != null" >
+        #{city,jdbcType=VARCHAR},
+      </if>
+      <if test="district != null" >
+        #{district,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.xj.pojo.IndustryStatEnterprisesRank" >
+    update industry_stat_enterprises_rank
+    <set >
+      <if test="iseId != null" >
+        ise_id = #{iseId,jdbcType=INTEGER},
+      </if>
+      <if test="order != null" >
+        order = #{order,jdbcType=INTEGER},
+      </if>
+      <if test="name != null" >
+        name = #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="rankBasis != null" >
+        rank_basis = #{rankBasis,jdbcType=VARCHAR},
+      </if>
+      <if test="rankValue != null" >
+        rank_value = #{rankValue,jdbcType=VARCHAR},
+      </if>
+      <if test="province != null" >
+        province = #{province,jdbcType=VARCHAR},
+      </if>
+      <if test="city != null" >
+        city = #{city,jdbcType=VARCHAR},
+      </if>
+      <if test="district != null" >
+        district = #{district,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where ier_id = #{ierId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.xj.pojo.IndustryStatEnterprisesRank" >
+    update industry_stat_enterprises_rank
+    set ise_id = #{iseId,jdbcType=INTEGER},
+      order = #{order,jdbcType=INTEGER},
+      name = #{name,jdbcType=VARCHAR},
+      rank_basis = #{rankBasis,jdbcType=VARCHAR},
+      rank_value = #{rankValue,jdbcType=VARCHAR},
+      province = #{province,jdbcType=VARCHAR},
+      city = #{city,jdbcType=VARCHAR},
+      district = #{district,jdbcType=VARCHAR}
+    where ier_id = #{ierId,jdbcType=INTEGER}
+  </update>
+</mapper>

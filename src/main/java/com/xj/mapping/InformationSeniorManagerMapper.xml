@@ -1,0 +1,125 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.xj.dao.InformationSeniorManagerMapper" >
+  <resultMap id="BaseResultMap" type="com.xj.pojo.InformationSeniorManager" >
+    <id column="ism_id" property="ismId" jdbcType="INTEGER" />
+    <result column="se_id" property="seId" jdbcType="INTEGER" />
+    <result column="name" property="name" jdbcType="VARCHAR" />
+    <result column="position" property="position" jdbcType="VARCHAR" />
+    <result column="birthday" property="birthday" jdbcType="TIMESTAMP" />
+    <result column="resume" property="resume" jdbcType="LONGVARCHAR" />
+    <result column="dismission_date" property="dismissionDate" jdbcType="TIMESTAMP" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    ism_id, se_id, name, position, birthday, resume, dismission_date
+  </sql>
+  
+  <select id="getInformationSeniorManagerListBySeId" resultMap="BaseResultMap" parameterType="java.lang.Integer">
+   select 
+    <include refid="Base_Column_List" />
+    from information_senior_manager
+    where se_id = #{seId,jdbcType=INTEGER}
+  </select>
+  
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from information_senior_manager
+    where ism_id = #{ismId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from information_senior_manager
+    where ism_id = #{ismId,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.xj.pojo.InformationSeniorManager" >
+    insert into information_senior_manager (ism_id, se_id, name, 
+      position, birthday, resume, 
+      dismission_date)
+    values (#{ismId,jdbcType=INTEGER}, #{seId,jdbcType=INTEGER}, #{name,jdbcType=VARCHAR}, 
+      #{position,jdbcType=VARCHAR}, #{birthday,jdbcType=TIMESTAMP}, #{resume,jdbcType=LONGVARCHAR}, 
+      #{dismissionDate,jdbcType=TIMESTAMP})
+  </insert>
+  <insert id="insertSelective" parameterType="com.xj.pojo.InformationSeniorManager" >
+    insert into information_senior_manager
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="ismId != null" >
+        ism_id,
+      </if>
+      <if test="seId != null" >
+        se_id,
+      </if>
+      <if test="name != null" >
+        name,
+      </if>
+      <if test="position != null" >
+        position,
+      </if>
+      <if test="birthday != null" >
+        birthday,
+      </if>
+      <if test="resume != null" >
+        resume,
+      </if>
+      <if test="dismissionDate != null" >
+        dismission_date,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="ismId != null" >
+        #{ismId,jdbcType=INTEGER},
+      </if>
+      <if test="seId != null" >
+        #{seId,jdbcType=INTEGER},
+      </if>
+      <if test="name != null" >
+        #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="position != null" >
+        #{position,jdbcType=VARCHAR},
+      </if>
+      <if test="birthday != null" >
+        #{birthday,jdbcType=TIMESTAMP},
+      </if>
+      <if test="resume != null" >
+        #{resume,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="dismissionDate != null" >
+        #{dismissionDate,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.xj.pojo.InformationSeniorManager" >
+    update information_senior_manager
+    <set >
+      <if test="seId != null" >
+        se_id = #{seId,jdbcType=INTEGER},
+      </if>
+      <if test="name != null" >
+        name = #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="position != null" >
+        position = #{position,jdbcType=VARCHAR},
+      </if>
+      <if test="birthday != null" >
+        birthday = #{birthday,jdbcType=TIMESTAMP},
+      </if>
+      <if test="resume != null" >
+        resume = #{resume,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="dismissionDate != null" >
+        dismission_date = #{dismissionDate,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where ism_id = #{ismId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.xj.pojo.InformationSeniorManager" >
+    update information_senior_manager
+    set se_id = #{seId,jdbcType=INTEGER},
+      name = #{name,jdbcType=VARCHAR},
+      position = #{position,jdbcType=VARCHAR},
+      birthday = #{birthday,jdbcType=TIMESTAMP},
+      resume = #{resume,jdbcType=LONGVARCHAR},
+      dismission_date = #{dismissionDate,jdbcType=TIMESTAMP}
+    where ism_id = #{ismId,jdbcType=INTEGER}
+  </update>
+</mapper>

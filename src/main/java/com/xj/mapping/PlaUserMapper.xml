@@ -1,0 +1,165 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.xj.dao.PlaUserMapper" >
+  <resultMap id="BaseResultMap" type="com.xj.pojo.PlaUser" >
+    <id column="pla_user_id" property="plaUserId" jdbcType="INTEGER" />
+    <result column="pla_user_group" property="plaUserGroup" jdbcType="INTEGER" />
+    <result column="pla_user_name" property="plaUserName" jdbcType="VARCHAR" />
+    <result column="pla_user_pwd" property="plaUserPwd" jdbcType="VARCHAR" />
+    <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+    <result column="update_time" property="updateTime" jdbcType="TIMESTAMP" />
+    <result column="last_login_time" property="lastLoginTime" jdbcType="TIMESTAMP" />
+    
+    <association property="plaGroup" javaType="com.xj.pojo.PlaGroup">
+    	 <id column="group_id" property="groupId" jdbcType="INTEGER" />
+   		 <result column="group_name" property="groupName" jdbcType="VARCHAR" />
+    </association>
+    <collection property="plafunList" column="pla_user_group" javaType="ArrayList" 
+    	ofType="com.xj.pojo.PlaFun" select="getPlaFunByGroupId">
+    	
+    </collection>
+  </resultMap>
+  <sql id="Base_Column_List" >
+    pla_user_id, pla_user_group, pla_user_name, pla_user_pwd, create_time, update_time, last_login_time
+  </sql>
+  <sql id="Base_group_list">
+  	group_id, group_name
+  </sql>
+  
+   <resultMap type="com.xj.pojo.PlaFun" id="PlaFunMap">
+ 	<id column="fun_id" property="funId" jdbcType="INTEGER"/>
+ 	<result column="fun_name" property="funName" jdbcType="VARCHAR"/>
+ 	<result column="fun_label" property="funLabel" jdbcType="VARCHAR"/>
+ </resultMap> 
+ 
+<select id="getPlaFunByGroupId" resultMap="PlaFunMap" parameterType="java.lang.Integer">
+	select fun_id,fun_name,fun_label from pla_fun left join pla_groupfun on gf_fun_id = fun_id where gf_group_id = #{groupId}
+	
+</select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Base_group_list" />
+    from pla_user 
+    left join pla_group on pla_user_group = group_id 
+    where pla_user_id = #{plaUserId,jdbcType=INTEGER}
+  </select>
+  
+  <!-- 根据用户名密码查询 -->
+  <select id="selectByNamePwd" resultMap="BaseResultMap">
+  
+	select 
+	<include refid="Base_Column_List" />
+  	from pla_user
+  	where 
+  		pla_user_name = #{plaUserName, jdbcType=VARCHAR}
+  		and pla_user_pwd = #{pla_user_pwd, jdbcType=VARCHAR}
+  </select>
+  
+  <select id="selectAll" resultMap="BaseResultMap" parameterType="java.lang.String">
+  	select 
+	<include refid="Base_Column_List" />
+	,
+	<include refid="Base_group_list" />
+	from pla_user left join pla_group on pla_user_group = group_id 
+	<if test="plaUserName != null and plaUserName !=''">
+	where pla_user_name like #{plaUserName, jdbcType=VARCHAR}
+	</if>
+  </select>
+  
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from pla_user
+    where pla_user_id = #{plaUserId,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.xj.pojo.PlaUser" >
+    insert into pla_user (pla_user_id, pla_user_name, pla_user_pwd, 
+      create_time, update_time, last_login_time
+      )
+    values (#{plaUserId,jdbcType=INTEGER}, #{plaUserName,jdbcType=VARCHAR}, #{plaUserPwd,jdbcType=VARCHAR}, 
+      #{createTime,jdbcType=TIMESTAMP}, #{updateTime,jdbcType=TIMESTAMP}, #{lastLoginTime,jdbcType=TIMESTAMP}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.xj.pojo.PlaUser" >
+    insert into pla_user
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="plaUserId != null" >
+        pla_user_id,
+      </if>
+      <if test="plaUserGroup != null" >
+        pla_user_group,
+      </if>
+      <if test="plaUserName != null" >
+        pla_user_name,
+      </if>
+      <if test="plaUserPwd != null" >
+        pla_user_pwd,
+      </if>
+      <if test="createTime != null" >
+        create_time,
+      </if>
+      <if test="updateTime != null" >
+        update_time,
+      </if>
+      <if test="lastLoginTime != null" >
+        last_login_time,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="plaUserId != null" >
+        #{plaUserId,jdbcType=INTEGER},
+      </if>
+      <if test="plaUserGroup != null" >
+        #{plaUserGroup,jdbcType=INTEGER},
+      </if>
+      <if test="plaUserName != null" >
+        #{plaUserName,jdbcType=VARCHAR},
+      </if>
+      <if test="plaUserPwd != null" >
+        #{plaUserPwd,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null" >
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null" >
+        #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="lastLoginTime != null" >
+        #{lastLoginTime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.xj.pojo.PlaUser" >
+    update pla_user
+    <set >
+      <if test="plaUserName != null" >
+        pla_user_name = #{plaUserName,jdbcType=VARCHAR},
+      </if>
+      <if test="plaUserGroup != null" >
+        pla_user_group = #{plaUserGroup,jdbcType=INTEGER},
+      </if>
+      <if test="plaUserPwd != null" >
+        pla_user_pwd = #{plaUserPwd,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null" >
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null" >
+        update_time = #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="lastLoginTime != null" >
+        last_login_time = #{lastLoginTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where pla_user_id = #{plaUserId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.xj.pojo.PlaUser" >
+    update pla_user
+    set pla_user_name = #{plaUserName,jdbcType=VARCHAR},
+      pla_user_pwd = #{plaUserPwd,jdbcType=VARCHAR},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      update_time = #{updateTime,jdbcType=TIMESTAMP},
+      last_login_time = #{lastLoginTime,jdbcType=TIMESTAMP}
+    where pla_user_id = #{plaUserId,jdbcType=INTEGER}
+  </update>
+</mapper>

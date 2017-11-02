@@ -1,0 +1,141 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.xj.dao.RegEconomicsReportMapper" >
+  <resultMap id="BaseResultMap" type="com.xj.pojo.RegEconomicsReport" >
+    <id column="rer_id" property="rerId" jdbcType="INTEGER" />
+    <result column="reg_eco_id" property="regEcoId" jdbcType="INTEGER" />
+    <result column="year" property="year" jdbcType="DATE" />
+    <result column="report_class" property="reportClass" jdbcType="VARCHAR" />
+    <result column="report_name" property="reportName" jdbcType="VARCHAR" />
+    <result column="type" property="type" jdbcType="VARCHAR" />
+    <result column="websites" property="websites" jdbcType="VARCHAR" />
+    <result column="content" property="content" jdbcType="VARCHAR" />
+    <result column="attachment" property="attachment" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    rer_id, reg_eco_id, year, report_class, report_name, type, websites, content, attachment
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from reg_economics_report
+    where rer_id = #{rerId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from reg_economics_report
+    where rer_id = #{rerId,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.xj.pojo.RegEconomicsReport" >
+    insert into reg_economics_report (rer_id, reg_eco_id, year, 
+      report_class, report_name, type, 
+      websites, content, attachment
+      )
+    values (#{rerId,jdbcType=INTEGER}, #{regEcoId,jdbcType=INTEGER}, #{year,jdbcType=DATE}, 
+      #{reportClass,jdbcType=VARCHAR}, #{reportName,jdbcType=VARCHAR}, #{type,jdbcType=VARCHAR}, 
+      #{websites,jdbcType=VARCHAR}, #{content,jdbcType=VARCHAR}, #{attachment,jdbcType=VARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.xj.pojo.RegEconomicsReport" >
+    insert into reg_economics_report
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="rerId != null" >
+        rer_id,
+      </if>
+      <if test="regEcoId != null" >
+        reg_eco_id,
+      </if>
+      <if test="year != null" >
+        year,
+      </if>
+      <if test="reportClass != null" >
+        report_class,
+      </if>
+      <if test="reportName != null" >
+        report_name,
+      </if>
+      <if test="type != null" >
+        type,
+      </if>
+      <if test="websites != null" >
+        websites,
+      </if>
+      <if test="content != null" >
+        content,
+      </if>
+      <if test="attachment != null" >
+        attachment,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="rerId != null" >
+        #{rerId,jdbcType=INTEGER},
+      </if>
+      <if test="regEcoId != null" >
+        #{regEcoId,jdbcType=INTEGER},
+      </if>
+      <if test="year != null" >
+        #{year,jdbcType=DATE},
+      </if>
+      <if test="reportClass != null" >
+        #{reportClass,jdbcType=VARCHAR},
+      </if>
+      <if test="reportName != null" >
+        #{reportName,jdbcType=VARCHAR},
+      </if>
+      <if test="type != null" >
+        #{type,jdbcType=VARCHAR},
+      </if>
+      <if test="websites != null" >
+        #{websites,jdbcType=VARCHAR},
+      </if>
+      <if test="content != null" >
+        #{content,jdbcType=VARCHAR},
+      </if>
+      <if test="attachment != null" >
+        #{attachment,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.xj.pojo.RegEconomicsReport" >
+    update reg_economics_report
+    <set >
+      <if test="regEcoId != null" >
+        reg_eco_id = #{regEcoId,jdbcType=INTEGER},
+      </if>
+      <if test="year != null" >
+        year = #{year,jdbcType=DATE},
+      </if>
+      <if test="reportClass != null" >
+        report_class = #{reportClass,jdbcType=VARCHAR},
+      </if>
+      <if test="reportName != null" >
+        report_name = #{reportName,jdbcType=VARCHAR},
+      </if>
+      <if test="type != null" >
+        type = #{type,jdbcType=VARCHAR},
+      </if>
+      <if test="websites != null" >
+        websites = #{websites,jdbcType=VARCHAR},
+      </if>
+      <if test="content != null" >
+        content = #{content,jdbcType=VARCHAR},
+      </if>
+      <if test="attachment != null" >
+        attachment = #{attachment,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where rer_id = #{rerId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.xj.pojo.RegEconomicsReport" >
+    update reg_economics_report
+    set reg_eco_id = #{regEcoId,jdbcType=INTEGER},
+      year = #{year,jdbcType=DATE},
+      report_class = #{reportClass,jdbcType=VARCHAR},
+      report_name = #{reportName,jdbcType=VARCHAR},
+      type = #{type,jdbcType=VARCHAR},
+      websites = #{websites,jdbcType=VARCHAR},
+      content = #{content,jdbcType=VARCHAR},
+      attachment = #{attachment,jdbcType=VARCHAR}
+    where rer_id = #{rerId,jdbcType=INTEGER}
+  </update>
+</mapper>

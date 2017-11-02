@@ -1,0 +1,134 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.xj.dao.SeReportMapper" >
+  <resultMap id="BaseResultMap" type="com.xj.pojo.SeReport" >
+    <id column="report_id" property="reportId" jdbcType="INTEGER" />
+    <result column="se_id" property="seId" jdbcType="INTEGER" />
+    <result column="report_type" property="reportType" jdbcType="INTEGER" />
+    <result column="ar_year" property="arYear" jdbcType="VARCHAR" />
+    <result column="report_name" property="reportName" jdbcType="VARCHAR" />
+    <result column="report_url" property="reportUrl" jdbcType="VARCHAR" />
+    <result column="websites" property="websites" jdbcType="VARCHAR" />
+    <association property="seReportType" javaType="com.xj.pojo.SeReportType">
+    	<id column="rt_id" property="rtId" jdbcType="INTEGER" />
+    	<result column="type_name" property="typeName" jdbcType="VARCHAR" />
+    </association>
+  </resultMap>
+  <sql id="Base_Column_List" >
+    report_id, se_id, report_type, ar_year, report_name,report_url, websites
+  </sql>
+   <sql id="type_Column_List" >
+    rt_id, type_name
+  </sql>
+  
+  <select id="getSeReportListBySeId" resultMap="BaseResultMap" parameterType="java.lang.Integer">
+   select 
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="type_Column_List" />
+    from se_report left join se_report_type on report_type = rt_id
+    where se_id = #{seId,jdbcType=INTEGER}
+  </select>
+  
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from se_report
+    where report_id = #{reportId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from se_report
+    where report_id = #{reportId,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.xj.pojo.SeReport" >
+    insert into se_report (report_id, se_id, report_type, 
+      ar_year, report_name,report_url, websites
+      )
+    values (#{reportId,jdbcType=INTEGER}, #{seId,jdbcType=INTEGER}, #{reportType,jdbcType=INTEGER}, 
+      #{arYear,jdbcType=VARCHAR}, #{reportName,jdbcType=VARCHAR},#{reportUrl,jdbcType=VARCHAR}, #{websites,jdbcType=VARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.xj.pojo.SeReport" >
+    insert into se_report
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="reportId != null" >
+        report_id,
+      </if>
+      <if test="seId != null" >
+        se_id,
+      </if>
+      <if test="reportType != null" >
+        report_type,
+      </if>
+      <if test="arYear != null" >
+        ar_year,
+      </if>
+      <if test="reportName != null" >
+        report_name,
+      </if>
+      <if test="reportUrl != null" >
+        report_url,
+      </if>
+      <if test="websites != null" >
+        websites,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="reportId != null" >
+        #{reportId,jdbcType=INTEGER},
+      </if>
+      <if test="seId != null" >
+        #{seId,jdbcType=INTEGER},
+      </if>
+      <if test="reportType != null" >
+        #{reportType,jdbcType=INTEGER},
+      </if>
+      <if test="arYear != null" >
+        #{arYear,jdbcType=VARCHAR},
+      </if>
+      <if test="reportName != null" >
+        #{reportName,jdbcType=VARCHAR},
+      </if>
+      <if test="reportUrl != null" >
+        #{reportUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="websites != null" >
+        #{websites,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.xj.pojo.SeReport" >
+    update se_report
+    <set >
+      <if test="seId != null" >
+        se_id = #{seId,jdbcType=INTEGER},
+      </if>
+      <if test="reportType != null" >
+        report_type = #{reportType,jdbcType=INTEGER},
+      </if>
+      <if test="arYear != null" >
+        ar_year = #{arYear,jdbcType=VARCHAR},
+      </if>
+      <if test="reportName != null" >
+        report_name = #{reportName,jdbcType=VARCHAR},
+      </if>
+      <if test="reportUrl != null" >
+        report_url = #{reportUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="websites != null" >
+        websites = #{websites,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where report_id = #{reportId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.xj.pojo.SeReport" >
+    update se_report
+    set se_id = #{seId,jdbcType=INTEGER},
+      report_type = #{reportType,jdbcType=INTEGER},
+      ar_year = #{arYear,jdbcType=VARCHAR},
+      report_name = #{reportName,jdbcType=VARCHAR},
+      report_url = #{reportUrl,jdbcType=VARCHAR},
+      websites = #{websites,jdbcType=VARCHAR}
+    where report_id = #{reportId,jdbcType=INTEGER}
+  </update>
+</mapper>

@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.xj.dao.PlaGroupfunMapper" >
+  <resultMap id="BaseResultMap" type="com.xj.pojo.PlaGroupfun" >
+    <id column="groupfun_id" property="groupfunId" jdbcType="INTEGER" />
+    <result column="gf_group_id" property="gfGroupId" jdbcType="INTEGER" />
+    <result column="gf_fun_id" property="gfFunId" jdbcType="INTEGER" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    groupfun_id, gf_group_id, gf_fun_id
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from pla_groupfun
+    where groupfun_id = #{groupfunId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from pla_groupfun
+    where groupfun_id = #{groupfunId,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByGroupId" parameterType="java.lang.Integer" >
+    delete from pla_groupfun
+    where gf_group_id = #{groupId,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.xj.pojo.PlaGroupfun" >
+    insert into pla_groupfun (groupfun_id, gf_group_id, gf_fun_id
+      )
+    values (#{groupfunId,jdbcType=INTEGER}, #{gfGroupId,jdbcType=INTEGER}, #{gfFunId,jdbcType=INTEGER}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.xj.pojo.PlaGroupfun" >
+    insert into pla_groupfun
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="groupfunId != null" >
+        groupfun_id,
+      </if>
+      <if test="gfGroupId != null" >
+        gf_group_id,
+      </if>
+      <if test="gfFunId != null" >
+        gf_fun_id,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="groupfunId != null" >
+        #{groupfunId,jdbcType=INTEGER},
+      </if>
+      <if test="gfGroupId != null" >
+        #{gfGroupId,jdbcType=INTEGER},
+      </if>
+      <if test="gfFunId != null" >
+        #{gfFunId,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.xj.pojo.PlaGroupfun" >
+    update pla_groupfun
+    <set >
+      <if test="gfGroupId != null" >
+        gf_group_id = #{gfGroupId,jdbcType=INTEGER},
+      </if>
+      <if test="gfFunId != null" >
+        gf_fun_id = #{gfFunId,jdbcType=INTEGER},
+      </if>
+    </set>
+    where groupfun_id = #{groupfunId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.xj.pojo.PlaGroupfun" >
+    update pla_groupfun
+    set gf_group_id = #{gfGroupId,jdbcType=INTEGER},
+      gf_fun_id = #{gfFunId,jdbcType=INTEGER}
+    where groupfun_id = #{groupfunId,jdbcType=INTEGER}
+  </update>
+</mapper>

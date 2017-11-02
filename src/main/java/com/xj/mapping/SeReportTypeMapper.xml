@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.xj.dao.SeReportTypeMapper" >
+  <resultMap id="BaseResultMap" type="com.xj.pojo.SeReportType" >
+    <id column="rt_id" property="rtId" jdbcType="INTEGER" />
+    <result column="type_name" property="typeName" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    rt_id, type_name
+  </sql>
+  
+  <select id="getSeReportTypeList" resultMap="BaseResultMap">
+  	select 
+    <include refid="Base_Column_List" />
+    from se_report_type
+  </select>
+  
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from se_report_type
+    where rt_id = #{rtId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from se_report_type
+    where rt_id = #{rtId,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.xj.pojo.SeReportType" >
+    insert into se_report_type (rt_id, type_name)
+    values (#{rtId,jdbcType=INTEGER}, #{typeName,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.xj.pojo.SeReportType" >
+    insert into se_report_type
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="rtId != null" >
+        rt_id,
+      </if>
+      <if test="typeName != null" >
+        type_name,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="rtId != null" >
+        #{rtId,jdbcType=INTEGER},
+      </if>
+      <if test="typeName != null" >
+        #{typeName,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.xj.pojo.SeReportType" >
+    update se_report_type
+    <set >
+      <if test="typeName != null" >
+        type_name = #{typeName,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where rt_id = #{rtId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.xj.pojo.SeReportType" >
+    update se_report_type
+    set type_name = #{typeName,jdbcType=VARCHAR}
+    where rt_id = #{rtId,jdbcType=INTEGER}
+  </update>
+</mapper>

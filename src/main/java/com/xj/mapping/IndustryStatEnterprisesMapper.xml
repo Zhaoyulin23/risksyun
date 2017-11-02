@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.xj.dao.IndustryStatEnterprisesMapper" >
+  <resultMap id="BaseResultMap" type="com.xj.pojo.IndustryStatEnterprises" >
+    <id column="ise_id" property="iseId" jdbcType="INTEGER" />
+    <result column="industry_category" property="industryCategory" jdbcType="VARCHAR" />
+    <result column="industry_class" property="industryClass" jdbcType="VARCHAR" />
+    <result column="industry_kind" property="industryKind" jdbcType="VARCHAR" />
+    <result column="year" property="year" jdbcType="DATE" />
+    <result column="rank_name" property="rankName" jdbcType="VARCHAR" />
+    <result column="websites" property="websites" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    ise_id, industry_category, industry_class, industry_kind, year, rank_name, websites
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from industry_stat_enterprises
+    where ise_id = #{iseId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from industry_stat_enterprises
+    where ise_id = #{iseId,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.xj.pojo.IndustryStatEnterprises" >
+    insert into industry_stat_enterprises (ise_id, industry_category, industry_class, 
+      industry_kind, year, rank_name, 
+      websites)
+    values (#{iseId,jdbcType=INTEGER}, #{industryCategory,jdbcType=VARCHAR}, #{industryClass,jdbcType=VARCHAR}, 
+      #{industryKind,jdbcType=VARCHAR}, #{year,jdbcType=DATE}, #{rankName,jdbcType=VARCHAR}, 
+      #{websites,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.xj.pojo.IndustryStatEnterprises" >
+    insert into industry_stat_enterprises
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="iseId != null" >
+        ise_id,
+      </if>
+      <if test="industryCategory != null" >
+        industry_category,
+      </if>
+      <if test="industryClass != null" >
+        industry_class,
+      </if>
+      <if test="industryKind != null" >
+        industry_kind,
+      </if>
+      <if test="year != null" >
+        year,
+      </if>
+      <if test="rankName != null" >
+        rank_name,
+      </if>
+      <if test="websites != null" >
+        websites,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="iseId != null" >
+        #{iseId,jdbcType=INTEGER},
+      </if>
+      <if test="industryCategory != null" >
+        #{industryCategory,jdbcType=VARCHAR},
+      </if>
+      <if test="industryClass != null" >
+        #{industryClass,jdbcType=VARCHAR},
+      </if>
+      <if test="industryKind != null" >
+        #{industryKind,jdbcType=VARCHAR},
+      </if>
+      <if test="year != null" >
+        #{year,jdbcType=DATE},
+      </if>
+      <if test="rankName != null" >
+        #{rankName,jdbcType=VARCHAR},
+      </if>
+      <if test="websites != null" >
+        #{websites,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.xj.pojo.IndustryStatEnterprises" >
+    update industry_stat_enterprises
+    <set >
+      <if test="industryCategory != null" >
+        industry_category = #{industryCategory,jdbcType=VARCHAR},
+      </if>
+      <if test="industryClass != null" >
+        industry_class = #{industryClass,jdbcType=VARCHAR},
+      </if>
+      <if test="industryKind != null" >
+        industry_kind = #{industryKind,jdbcType=VARCHAR},
+      </if>
+      <if test="year != null" >
+        year = #{year,jdbcType=DATE},
+      </if>
+      <if test="rankName != null" >
+        rank_name = #{rankName,jdbcType=VARCHAR},
+      </if>
+      <if test="websites != null" >
+        websites = #{websites,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where ise_id = #{iseId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.xj.pojo.IndustryStatEnterprises" >
+    update industry_stat_enterprises
+    set industry_category = #{industryCategory,jdbcType=VARCHAR},
+      industry_class = #{industryClass,jdbcType=VARCHAR},
+      industry_kind = #{industryKind,jdbcType=VARCHAR},
+      year = #{year,jdbcType=DATE},
+      rank_name = #{rankName,jdbcType=VARCHAR},
+      websites = #{websites,jdbcType=VARCHAR}
+    where ise_id = #{iseId,jdbcType=INTEGER}
+  </update>
+</mapper>

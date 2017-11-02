@@ -1,0 +1,123 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.xj.dao.InformationNegativeMapper" >
+  <resultMap id="BaseResultMap" type="com.xj.pojo.InformationNegative" >
+    <id column="in_id" property="inId" jdbcType="INTEGER" />
+    <result column="se_id" property="seId" jdbcType="INTEGER" />
+    <result column="id_date" property="idDate" jdbcType="TIMESTAMP" />
+    <result column="type" property="type" jdbcType="INTEGER" />
+    <result column="amount" property="amount" jdbcType="VARCHAR" />
+    <result column="incident" property="incident" jdbcType="VARCHAR" />
+    <association property="informationNegativeType" javaType="com.xj.pojo.InformationNegativeType">
+    	<id column="int_id" property="intId" jdbcType="INTEGER" />
+    	<result column="type_name" property="typeName" jdbcType="VARCHAR" />
+    </association>
+  </resultMap>
+  <sql id="Base_Column_List" >
+    in_id, se_id, id_date, type, amount, incident
+  </sql>
+  <sql id="int_Column_List" >
+    int_id, type_name
+  </sql>
+  
+  <select id="getInformationNegativeList" resultMap="BaseResultMap" parameterType="java.lang.Integer">
+ 	 select 
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="int_Column_List" />
+    from information_negative left join information_negative_type on type = int_id
+    where se_id = #{seId,jdbcType=INTEGER}
+  </select>
+  
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from information_negative
+    where in_id = #{inId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from information_negative
+    where in_id = #{inId,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.xj.pojo.InformationNegative" >
+    insert into information_negative (in_id, se_id, id_date, 
+      type, amount, incident
+      )
+    values (#{inId,jdbcType=INTEGER}, #{seId,jdbcType=INTEGER}, #{idDate,jdbcType=TIMESTAMP}, 
+      #{type,jdbcType=INTEGER}, #{amount,jdbcType=VARCHAR}, #{incident,jdbcType=VARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.xj.pojo.InformationNegative" >
+    insert into information_negative
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="inId != null" >
+        in_id,
+      </if>
+      <if test="seId != null" >
+        se_id,
+      </if>
+      <if test="idDate != null" >
+        id_date,
+      </if>
+      <if test="type != null" >
+        type,
+      </if>
+      <if test="amount != null" >
+        amount,
+      </if>
+      <if test="incident != null" >
+        incident,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="inId != null" >
+        #{inId,jdbcType=INTEGER},
+      </if>
+      <if test="seId != null" >
+        #{seId,jdbcType=INTEGER},
+      </if>
+      <if test="idDate != null" >
+        #{idDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="type != null" >
+        #{type,jdbcType=INTEGER},
+      </if>
+      <if test="amount != null" >
+        #{amount,jdbcType=VARCHAR},
+      </if>
+      <if test="incident != null" >
+        #{incident,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.xj.pojo.InformationNegative" >
+    update information_negative
+    <set >
+      <if test="seId != null" >
+        se_id = #{seId,jdbcType=INTEGER},
+      </if>
+      <if test="idDate != null" >
+        id_date = #{idDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="type != null" >
+        type = #{type,jdbcType=INTEGER},
+      </if>
+      <if test="amount != null" >
+        amount = #{amount,jdbcType=VARCHAR},
+      </if>
+      <if test="incident != null" >
+        incident = #{incident,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where in_id = #{inId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.xj.pojo.InformationNegative" >
+    update information_negative
+    set se_id = #{seId,jdbcType=INTEGER},
+      id_date = #{idDate,jdbcType=TIMESTAMP},
+      type = #{type,jdbcType=INTEGER},
+      amount = #{amount,jdbcType=VARCHAR},
+      incident = #{incident,jdbcType=VARCHAR}
+    where in_id = #{inId,jdbcType=INTEGER}
+  </update>
+</mapper>

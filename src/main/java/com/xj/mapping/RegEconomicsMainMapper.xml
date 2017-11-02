@@ -1,0 +1,132 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.xj.dao.RegEconomicsMainMapper" >
+  <resultMap id="BaseResultMap" type="com.xj.pojo.RegEconomicsMain" >
+    <id column="rem_id" property="remId" jdbcType="INTEGER" />
+    <result column="province" property="province" jdbcType="VARCHAR" />
+    <result column="city" property="city" jdbcType="VARCHAR" />
+    <result column="district" property="district" jdbcType="VARCHAR" />
+    <result column="gov_port_website" property="govPortWebsite" jdbcType="VARCHAR" />
+    <result column="stat_dept_website" property="statDeptWebsite" jdbcType="VARCHAR" />
+    <result column="bureau_finance_website" property="bureauFinanceWebsite" jdbcType="VARCHAR" />
+    <association property="AreaProvacc" javaType="com.xj.pojo.Area">
+    
+    </association>
+  </resultMap>
+  <sql id="Base_Column_List" >
+    rem_id, province, city, district, gov_port_website, stat_dept_website, bureau_finance_website
+  </sql>
+  
+  <select id="getCount" resultType="java.lang.Integer">
+  SELECT COUNT(*) FROM reg_economics_main 
+  </select>
+  
+  <select id="getRegEconomicsMainList" resultMap="BaseResultMap">
+  	select 
+    <include refid="Base_Column_List" />
+    from reg_economics_main
+     LIMIT #{startPos},#{pageSize}
+  </select>
+  
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from reg_economics_main
+    where rem_id = #{remId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from reg_economics_main
+    where rem_id = #{remId,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.xj.pojo.RegEconomicsMain" >
+    insert into reg_economics_main (rem_id, province, city, 
+      district, gov_port_website, stat_dept_website, 
+      bureau_finance_website)
+    values (#{remId,jdbcType=INTEGER}, #{province,jdbcType=VARCHAR}, #{city,jdbcType=VARCHAR}, 
+      #{district,jdbcType=VARCHAR}, #{govPortWebsite,jdbcType=VARCHAR}, #{statDeptWebsite,jdbcType=VARCHAR}, 
+      #{bureauFinanceWebsite,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.xj.pojo.RegEconomicsMain" useGeneratedKeys="true" keyProperty="remId">
+    insert into reg_economics_main
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="remId != null" >
+        rem_id,
+      </if>
+      <if test="province != null" >
+        province,
+      </if>
+      <if test="city != null" >
+        city,
+      </if>
+      <if test="district != null" >
+        district,
+      </if>
+      <if test="govPortWebsite != null" >
+        gov_port_website,
+      </if>
+      <if test="statDeptWebsite != null" >
+        stat_dept_website,
+      </if>
+      <if test="bureauFinanceWebsite != null" >
+        bureau_finance_website,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="remId != null" >
+        #{remId,jdbcType=INTEGER},
+      </if>
+      <if test="province != null" >
+        #{province,jdbcType=VARCHAR},
+      </if>
+      <if test="city != null" >
+        #{city,jdbcType=VARCHAR},
+      </if>
+      <if test="district != null" >
+        #{district,jdbcType=VARCHAR},
+      </if>
+      <if test="govPortWebsite != null" >
+        #{govPortWebsite,jdbcType=VARCHAR},
+      </if>
+      <if test="statDeptWebsite != null" >
+        #{statDeptWebsite,jdbcType=VARCHAR},
+      </if>
+      <if test="bureauFinanceWebsite != null" >
+        #{bureauFinanceWebsite,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.xj.pojo.RegEconomicsMain" >
+    update reg_economics_main
+    <set >
+      <if test="province != null" >
+        province = #{province,jdbcType=VARCHAR},
+      </if>
+      <if test="city != null" >
+        city = #{city,jdbcType=VARCHAR},
+      </if>
+      <if test="district != null" >
+        district = #{district,jdbcType=VARCHAR},
+      </if>
+      <if test="govPortWebsite != null" >
+        gov_port_website = #{govPortWebsite,jdbcType=VARCHAR},
+      </if>
+      <if test="statDeptWebsite != null" >
+        stat_dept_website = #{statDeptWebsite,jdbcType=VARCHAR},
+      </if>
+      <if test="bureauFinanceWebsite != null" >
+        bureau_finance_website = #{bureauFinanceWebsite,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where rem_id = #{remId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.xj.pojo.RegEconomicsMain" >
+    update reg_economics_main
+    set province = #{province,jdbcType=VARCHAR},
+      city = #{city,jdbcType=VARCHAR},
+      district = #{district,jdbcType=VARCHAR},
+      gov_port_website = #{govPortWebsite,jdbcType=VARCHAR},
+      stat_dept_website = #{statDeptWebsite,jdbcType=VARCHAR},
+      bureau_finance_website = #{bureauFinanceWebsite,jdbcType=VARCHAR}
+    where rem_id = #{remId,jdbcType=INTEGER}
+  </update>
+</mapper>

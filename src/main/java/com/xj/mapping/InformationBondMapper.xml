@@ -1,0 +1,136 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.xj.dao.InformationBondMapper" >
+  <resultMap id="BaseResultMap" type="com.xj.pojo.InformationBond" >
+    <id column="ib_id" property="ibId" jdbcType="INTEGER" />
+    <result column="se_id" property="seId" jdbcType="INTEGER" />
+    <result column="finance_id" property="financeId" jdbcType="INTEGER" />
+    <result column="bond_code" property="bondCode" jdbcType="VARCHAR" />
+    <result column="bond_type" property="bondType" jdbcType="VARCHAR" />
+    <result column="issuing_term" property="issuingTerm" jdbcType="VARCHAR" />
+    <result column="issuing_amount" property="issuingAmount" jdbcType="VARCHAR" />
+    <result column="current_balance" property="currentBalance" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    ib_id, se_id, finance_id, bond_code, bond_type, issuing_term, issuing_amount, current_balance
+  </sql>
+  
+  <select id="getInformationBondList" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+ 	 select 
+    <include refid="Base_Column_List" />
+    from information_bond
+    where se_id = #{seId,jdbcType=INTEGER}
+  </select>
+  
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from information_bond
+    where ib_id = #{ibId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from information_bond
+    where ib_id = #{ibId,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.xj.pojo.InformationBond" >
+    insert into information_bond (ib_id, se_id, finance_id, 
+      bond_code, bond_type, issuing_term, 
+      issuing_amount, current_balance)
+    values (#{ibId,jdbcType=INTEGER}, #{seId,jdbcType=INTEGER}, #{financeId,jdbcType=INTEGER}, 
+      #{bondCode,jdbcType=VARCHAR}, #{bondType,jdbcType=VARCHAR}, #{issuingTerm,jdbcType=VARCHAR}, 
+      #{issuingAmount,jdbcType=VARCHAR}, #{currentBalance,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.xj.pojo.InformationBond" >
+    insert into information_bond
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="ibId != null" >
+        ib_id,
+      </if>
+      <if test="seId != null" >
+        se_id,
+      </if>
+      <if test="financeId != null" >
+        finance_id,
+      </if>
+      <if test="bondCode != null" >
+        bond_code,
+      </if>
+      <if test="bondType != null" >
+        bond_type,
+      </if>
+      <if test="issuingTerm != null" >
+        issuing_term,
+      </if>
+      <if test="issuingAmount != null" >
+        issuing_amount,
+      </if>
+      <if test="currentBalance != null" >
+        current_balance,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="ibId != null" >
+        #{ibId,jdbcType=INTEGER},
+      </if>
+      <if test="seId != null" >
+        #{seId,jdbcType=INTEGER},
+      </if>
+      <if test="financeId != null" >
+        #{financeId,jdbcType=INTEGER},
+      </if>
+      <if test="bondCode != null" >
+        #{bondCode,jdbcType=VARCHAR},
+      </if>
+      <if test="bondType != null" >
+        #{bondType,jdbcType=VARCHAR},
+      </if>
+      <if test="issuingTerm != null" >
+        #{issuingTerm,jdbcType=VARCHAR},
+      </if>
+      <if test="issuingAmount != null" >
+        #{issuingAmount,jdbcType=VARCHAR},
+      </if>
+      <if test="currentBalance != null" >
+        #{currentBalance,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.xj.pojo.InformationBond" >
+    update information_bond
+    <set >
+      <if test="seId != null" >
+        se_id = #{seId,jdbcType=INTEGER},
+      </if>
+      <if test="financeId != null" >
+        finance_id = #{financeId,jdbcType=INTEGER},
+      </if>
+      <if test="bondCode != null" >
+        bond_code = #{bondCode,jdbcType=VARCHAR},
+      </if>
+      <if test="bondType != null" >
+        bond_type = #{bondType,jdbcType=VARCHAR},
+      </if>
+      <if test="issuingTerm != null" >
+        issuing_term = #{issuingTerm,jdbcType=VARCHAR},
+      </if>
+      <if test="issuingAmount != null" >
+        issuing_amount = #{issuingAmount,jdbcType=VARCHAR},
+      </if>
+      <if test="currentBalance != null" >
+        current_balance = #{currentBalance,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where ib_id = #{ibId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.xj.pojo.InformationBond" >
+    update information_bond
+    set se_id = #{seId,jdbcType=INTEGER},
+      finance_id = #{financeId,jdbcType=INTEGER},
+      bond_code = #{bondCode,jdbcType=VARCHAR},
+      bond_type = #{bondType,jdbcType=VARCHAR},
+      issuing_term = #{issuingTerm,jdbcType=VARCHAR},
+      issuing_amount = #{issuingAmount,jdbcType=VARCHAR},
+      current_balance = #{currentBalance,jdbcType=VARCHAR}
+    where ib_id = #{ibId,jdbcType=INTEGER}
+  </update>
+</mapper>

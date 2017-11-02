@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.xj.dao.PlaFunMapper" >
+  <resultMap id="BaseResultMap" type="com.xj.pojo.PlaFun" >
+    <id column="fun_id" property="funId" jdbcType="INTEGER" />
+    <result column="fun_name" property="funName" jdbcType="VARCHAR" />
+ 	<result column="fun_label" property="funLabel" jdbcType="VARCHAR"/>
+  </resultMap>
+  <sql id="Base_Column_List" >
+    fun_id, fun_name, fun_label
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from pla_fun
+    where fun_id = #{funId,jdbcType=INTEGER}
+  </select>
+  
+  <select id="selectAll" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from pla_fun
+    
+  </select>
+  
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from pla_fun
+    where fun_id = #{funId,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.xj.pojo.PlaFun" >
+    insert into pla_fun (fun_id, fun_name)
+    values (#{funId,jdbcType=INTEGER}, #{funName,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.xj.pojo.PlaFun" >
+    insert into pla_fun
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="funId != null" >
+        fun_id,
+      </if>
+      <if test="funName != null" >
+        fun_name,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="funId != null" >
+        #{funId,jdbcType=INTEGER},
+      </if>
+      <if test="funName != null" >
+        #{funName,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.xj.pojo.PlaFun" >
+    update pla_fun
+    <set >
+      <if test="funName != null" >
+        fun_name = #{funName,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where fun_id = #{funId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.xj.pojo.PlaFun" >
+    update pla_fun
+    set fun_name = #{funName,jdbcType=VARCHAR}
+    where fun_id = #{funId,jdbcType=INTEGER}
+  </update>
+</mapper>

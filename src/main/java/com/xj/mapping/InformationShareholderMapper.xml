@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.xj.dao.InformationShareholderMapper" >
+  <resultMap id="BaseResultMap" type="com.xj.pojo.InformationShareholder" >
+    <id column="is_id" property="isId" jdbcType="INTEGER" />
+    <result column="se_id" property="seId" jdbcType="INTEGER" />
+    <result column="alter_time" property="alterTime" jdbcType="TIMESTAMP" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    is_id, se_id, alter_time
+  </sql>
+  
+  <select id="getInformationShareholderBySeId" resultMap="BaseResultMap" parameterType="java.lang.Integer">
+  	select 
+    <include refid="Base_Column_List" />
+    from information_shareholder
+    where se_id = #{seId,jdbcType=INTEGER}
+  </select>
+  
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from information_shareholder
+    where is_id = #{isId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from information_shareholder
+    where is_id = #{isId,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.xj.pojo.InformationShareholder" >
+    insert into information_shareholder (is_id, se_id, alter_time
+      )
+    values (#{isId,jdbcType=INTEGER}, #{seId,jdbcType=INTEGER}, #{alterTime,jdbcType=TIMESTAMP}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.xj.pojo.InformationShareholder" >
+    insert into information_shareholder
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="isId != null" >
+        is_id,
+      </if>
+      <if test="seId != null" >
+        se_id,
+      </if>
+      <if test="alterTime != null" >
+        alter_time,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="isId != null" >
+        #{isId,jdbcType=INTEGER},
+      </if>
+      <if test="seId != null" >
+        #{seId,jdbcType=INTEGER},
+      </if>
+      <if test="alterTime != null" >
+        #{alterTime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.xj.pojo.InformationShareholder" >
+    update information_shareholder
+    <set >
+      <if test="seId != null" >
+        se_id = #{seId,jdbcType=INTEGER},
+      </if>
+      <if test="alterTime != null" >
+        alter_time = #{alterTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where is_id = #{isId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.xj.pojo.InformationShareholder" >
+    update information_shareholder
+    set se_id = #{seId,jdbcType=INTEGER},
+      alter_time = #{alterTime,jdbcType=TIMESTAMP}
+    where is_id = #{isId,jdbcType=INTEGER}
+  </update>
+</mapper>

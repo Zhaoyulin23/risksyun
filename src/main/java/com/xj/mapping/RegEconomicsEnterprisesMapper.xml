@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.xj.dao.RegEconomicsEnterprisesMapper" >
+  <resultMap id="BaseResultMap" type="com.xj.pojo.RegEconomicsEnterprises" >
+    <id column="rge_id" property="rgeId" jdbcType="VARCHAR" />
+    <result column="province" property="province" jdbcType="VARCHAR" />
+    <result column="city" property="city" jdbcType="VARCHAR" />
+    <result column="district" property="district" jdbcType="VARCHAR" />
+    <result column="year" property="year" jdbcType="VARCHAR" />
+    <result column="rank_name" property="rankName" jdbcType="VARCHAR" />
+    <result column="websites" property="websites" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    rge_id, province, city, district, year, rank_name, websites
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from reg_economics_enterprises
+    where rge_id = #{rgeId,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from reg_economics_enterprises
+    where rge_id = #{rgeId,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="com.xj.pojo.RegEconomicsEnterprises" >
+    insert into reg_economics_enterprises (rge_id, province, city, 
+      district, year, rank_name, 
+      websites)
+    values (#{rgeId,jdbcType=VARCHAR}, #{province,jdbcType=VARCHAR}, #{city,jdbcType=VARCHAR}, 
+      #{district,jdbcType=VARCHAR}, #{year,jdbcType=VARCHAR}, #{rankName,jdbcType=VARCHAR}, 
+      #{websites,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.xj.pojo.RegEconomicsEnterprises" >
+    insert into reg_economics_enterprises
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="rgeId != null" >
+        rge_id,
+      </if>
+      <if test="province != null" >
+        province,
+      </if>
+      <if test="city != null" >
+        city,
+      </if>
+      <if test="district != null" >
+        district,
+      </if>
+      <if test="year != null" >
+        year,
+      </if>
+      <if test="rankName != null" >
+        rank_name,
+      </if>
+      <if test="websites != null" >
+        websites,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="rgeId != null" >
+        #{rgeId,jdbcType=VARCHAR},
+      </if>
+      <if test="province != null" >
+        #{province,jdbcType=VARCHAR},
+      </if>
+      <if test="city != null" >
+        #{city,jdbcType=VARCHAR},
+      </if>
+      <if test="district != null" >
+        #{district,jdbcType=VARCHAR},
+      </if>
+      <if test="year != null" >
+        #{year,jdbcType=VARCHAR},
+      </if>
+      <if test="rankName != null" >
+        #{rankName,jdbcType=VARCHAR},
+      </if>
+      <if test="websites != null" >
+        #{websites,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.xj.pojo.RegEconomicsEnterprises" >
+    update reg_economics_enterprises
+    <set >
+      <if test="province != null" >
+        province = #{province,jdbcType=VARCHAR},
+      </if>
+      <if test="city != null" >
+        city = #{city,jdbcType=VARCHAR},
+      </if>
+      <if test="district != null" >
+        district = #{district,jdbcType=VARCHAR},
+      </if>
+      <if test="year != null" >
+        year = #{year,jdbcType=VARCHAR},
+      </if>
+      <if test="rankName != null" >
+        rank_name = #{rankName,jdbcType=VARCHAR},
+      </if>
+      <if test="websites != null" >
+        websites = #{websites,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where rge_id = #{rgeId,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.xj.pojo.RegEconomicsEnterprises" >
+    update reg_economics_enterprises
+    set province = #{province,jdbcType=VARCHAR},
+      city = #{city,jdbcType=VARCHAR},
+      district = #{district,jdbcType=VARCHAR},
+      year = #{year,jdbcType=VARCHAR},
+      rank_name = #{rankName,jdbcType=VARCHAR},
+      websites = #{websites,jdbcType=VARCHAR}
+    where rge_id = #{rgeId,jdbcType=VARCHAR}
+  </update>
+</mapper>
